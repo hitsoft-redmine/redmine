@@ -1271,25 +1271,25 @@ class Query < ActiveRecord::Base
       sql = relative_date_clause(db_table, db_field, 1, 1, is_custom_filter)
     when "w"
       # = this week
-      first_day_of_week = l(:general_first_day_of_week).to_i
+      first_day_of_week = Redmine::Helpers::Calendar.first_wday
       day_of_week = User.current.today.cwday
       days_ago = (day_of_week >= first_day_of_week ? day_of_week - first_day_of_week : day_of_week + 7 - first_day_of_week)
       sql = relative_date_clause(db_table, db_field, - days_ago, - days_ago + 6, is_custom_filter)
     when "lw"
       # = last week
-      first_day_of_week = l(:general_first_day_of_week).to_i
+      first_day_of_week = Redmine::Helpers::Calendar.first_wday
       day_of_week = User.current.today.cwday
       days_ago = (day_of_week >= first_day_of_week ? day_of_week - first_day_of_week : day_of_week + 7 - first_day_of_week)
       sql = relative_date_clause(db_table, db_field, - days_ago - 7, - days_ago - 1, is_custom_filter)
     when "l2w"
       # = last 2 weeks
-      first_day_of_week = l(:general_first_day_of_week).to_i
+      first_day_of_week = Redmine::Helpers::Calendar.first_wday
       day_of_week = User.current.today.cwday
       days_ago = (day_of_week >= first_day_of_week ? day_of_week - first_day_of_week : day_of_week + 7 - first_day_of_week)
       sql = relative_date_clause(db_table, db_field, - days_ago - 14, - days_ago - 1, is_custom_filter)
     when "nw"
       # = next week
-      first_day_of_week = l(:general_first_day_of_week).to_i
+      first_day_of_week = Redmine::Helpers::Calendar.first_wday
       day_of_week = User.current.today.cwday
       from = -(day_of_week >= first_day_of_week ? day_of_week - first_day_of_week : day_of_week + 7 - first_day_of_week) + 7
       sql = relative_date_clause(db_table, db_field, from, from + 6, is_custom_filter)
