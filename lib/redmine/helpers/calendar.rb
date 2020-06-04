@@ -66,17 +66,15 @@ module Redmine
 
       # Return the first day of week
       # 1 = Monday ... 7 = Sunday
+      # taking into account the Setting.start_of_week preference
       def self.first_wday
-        case Setting.start_of_week.to_i
-        when 1
-          @first_dow ||= (1 - 1)%7 + 1
-        when 6
-          @first_dow ||= (6 - 1)%7 + 1
-        when 7
-          @first_dow ||= (7 - 1)%7 + 1
-        else
-          @first_dow ||= (l(:general_first_day_of_week).to_i - 1)%7 + 1
-        end
+        wday = Setting.start_of_week.to_i
+        wday = l(:general_first_day_of_week).to_i unless [1, 6, 7].include? wday
+        (wday - 1) % 7 + 1
+      end
+
+      def first_wday
+        @first_dow ||= Calendar.first_wday
       end
 
       def last_wday
